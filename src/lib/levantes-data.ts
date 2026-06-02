@@ -1,5 +1,7 @@
 // All editable content lives here. Owner can update menus, translations, reels, contact.
 
+export { default as logo } from "@/assets/logo.png";
+
 import heroDay from "@/assets/hero-day.jpg";
 import heroNight from "@/assets/hero-night.jpg";
 import brunchDay from "@/assets/cat-brunch-day.jpg";

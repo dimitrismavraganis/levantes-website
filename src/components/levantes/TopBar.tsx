@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Sun, Moon, Languages } from "lucide-react";
 import { useLevantes } from "@/lib/levantes-context";
-import { translations } from "@/lib/levantes-data";
+import { translations, logo } from "@/lib/levantes-data";
 
 export function TopBar() {
   const { theme, toggleTheme, lang, toggleLang } = useLevantes();
@@ -24,8 +24,8 @@ export function TopBar() {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3 md:px-8 md:py-4">
-        <a href="#top" className="flex items-baseline gap-2">
-          <span className="font-display text-2xl tracking-tight md:text-3xl">Levantes</span>
+        <a href="#top" className="flex items-center gap-2">
+          <img src={logo} alt="Levantes" className="h-8 md:h-10 w-auto" />
           <span className="hidden text-[10px] uppercase tracking-[0.3em] text-muted-foreground md:inline">
             beach · gastro · bar
           </span>
