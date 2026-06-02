@@ -7,10 +7,9 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
   return (
@@ -37,9 +36,6 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
-  useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
-  }, [error]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -77,18 +73,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "A coastal gastro bar website showcasing menus and venue ambiance with dynamic day/night themes." },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "A coastal gastro bar website showcasing menus and venue ambiance with dynamic day/night themes." },
+      { title: "Levantes — All-Day Beach Gastro Bar" },
+      { name: "description", content: "Levantes is an all-day beach gastro bar by the sea. Morning swims and coffee, all-day plates, candlelit dinners and drinks." },
+      { property: "og:title", content: "Levantes — All-Day Beach Gastro Bar" },
+      { property: "og:description", content: "Sea, pool, brunch, dinner, drinks. By day and by night." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "Lovable App" },
-      { name: "twitter:description", content: "A coastal gastro bar website showcasing menus and venue ambiance with dynamic day/night themes." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/fa72fa9c-2bee-4da1-97ba-b5738fe19e49/id-preview-b17917da--1affb955-560a-48c9-99f6-87efa2c5493b.lovable.app-1780432434832.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/fa72fa9c-2bee-4da1-97ba-b5738fe19e49/id-preview-b17917da--1affb955-560a-48c9-99f6-87efa2c5493b.lovable.app-1780432434832.png" },
+      { name: "twitter:title", content: "Levantes — All-Day Beach Gastro Bar" },
+      { name: "twitter:description", content: "Sea, pool, brunch, dinner, drinks. By day and by night." },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
