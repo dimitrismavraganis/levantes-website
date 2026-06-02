@@ -7,6 +7,7 @@
     "dev": "vite dev",
     "build": "vite build",
     "build:dev": "vite build --mode development",
+    "build:vercel": "vite build && mkdir -p .vercel/output/functions/__server.func && cp -r dist/client/. .vercel/output/static/ && cp -r dist/server/. .vercel/output/functions/__server.func/ && cp dist/config.json .vercel/output/config.json",
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write ."
