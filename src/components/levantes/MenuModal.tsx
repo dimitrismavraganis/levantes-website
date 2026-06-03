@@ -81,7 +81,7 @@ export function MenuModal({ category, onClose }: Props) {
                   <li key={dIdx} className="grid grid-cols-[1fr_auto] gap-4 py-4">
                     <div>
                       <div className="flex flex-wrap items-baseline gap-2">
-                        <h4 className="text-base font-medium text-foreground md:text-lg">
+                        <h4 className="font-body text-base font-medium text-foreground md:text-lg">
                           {dish.name[lang]}
                         </h4>
                         {dish.tags?.map((t) => (
