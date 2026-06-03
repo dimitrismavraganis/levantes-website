@@ -53,7 +53,7 @@ export function MenuModal({ category, onClose }: Props) {
             <p className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground">
               {translations.catalog.eyebrow[lang]}
             </p>
-            <h2 id="menu-title" className="font-display text-3xl md:text-4xl">
+            <h2 id="menu-title" className="font-body text-2xl font-bold md:text-3xl">
               {category.label[lang]}
             </h2>
           </div>
@@ -71,7 +71,7 @@ export function MenuModal({ category, onClose }: Props) {
           {category.sections.map((section, sIdx) => (
             <section key={sIdx} className="mb-10 last:mb-0">
               <div className="mb-4 flex items-center gap-3">
-                <h3 className="font-display text-xl text-primary md:text-2xl">
+                <h3 className="font-body text-lg font-bold text-primary md:text-xl">
                   {section.title[lang]}
                 </h3>
                 <div className="h-px flex-1 bg-border" />
@@ -98,7 +98,7 @@ export function MenuModal({ category, onClose }: Props) {
                         {dish.desc[lang]}
                       </p>
                     </div>
-                    <div className="self-start whitespace-nowrap font-display text-lg text-foreground tabular-nums">
+                    <div className="self-start whitespace-nowrap font-body text-base font-bold text-foreground tabular-nums">
                       {dish.price}
                     </div>
                   </li>
