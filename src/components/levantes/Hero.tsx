@@ -25,8 +25,15 @@ export function Hero() {
         }`}
       />
 
-      {/* Atmospheric wash */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/10 via-background/0 to-background/90" />
+      {/* Atmospheric wash + legibility scrim for the centered text */}
+      <div className="absolute inset-0 bg-gradient-to-b from-deep/30 via-deep/10 to-background/90" />
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 70% 55% at 50% 45%, oklch(0.18 0.06 255 / 0.55), transparent 72%)",
+        }}
+      />
       <div className="caustics absolute inset-0 pointer-events-none" />
 
       {/* Floating bubbles */}
@@ -49,15 +56,15 @@ export function Hero() {
 
       {/* Content */}
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
-        <div className="animate-liquid-reveal">
-          <p className="text-xs uppercase tracking-[0.45em] text-foreground/80 mb-5">
+        <div className="animate-liquid-reveal [text-shadow:0_2px_24px_oklch(0.18_0.06_255_/_0.55)]">
+          <p className="text-xs uppercase tracking-[0.45em] text-white/85 mb-5">
             {theme === "day" ? "Sea · Pool · Coffee" : "Candles · Sea · Wine"}
           </p>
-          <h1 className="font-display text-[clamp(3.5rem,12vw,9rem)] leading-[0.9] tracking-tight text-foreground drop-shadow-sm">
+          <h1 className="font-display text-[clamp(3.5rem,12vw,9rem)] leading-[0.9] tracking-tight text-white">
             Levantes
           </h1>
-          <div className="wave-divider mx-auto mt-4 w-40 text-primary" aria-hidden />
-          <p className="mx-auto mt-6 max-w-xl text-base text-foreground/85 md:text-lg">
+          <div className="wave-divider mx-auto mt-4 w-40 text-foam" aria-hidden />
+          <p className="mx-auto mt-6 max-w-xl text-base text-white/90 md:text-lg">
             {translations.hero.tagline[lang]}
           </p>
           <div className="mt-9 flex flex-wrap justify-center gap-3">
@@ -79,7 +86,7 @@ export function Hero() {
         <a
           href="#catalog"
           aria-label="Scroll to menu"
-          className="absolute bottom-8 inline-flex flex-col items-center gap-1 text-foreground/70 hover:text-foreground transition-colors"
+          className="absolute bottom-8 inline-flex flex-col items-center gap-1 text-white/70 hover:text-white transition-colors"
         >
           <span className="text-[10px] uppercase tracking-[0.4em]">{translations.nav.catalog[lang]}</span>
           <ChevronDown className="size-4 animate-bounce" />

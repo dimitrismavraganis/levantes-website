@@ -3,19 +3,70 @@ import { ChevronLeft, ChevronRight, Instagram } from "lucide-react";
 import { useLevantes } from "@/lib/levantes-context";
 import { reels, translations, imagePairs } from "@/lib/levantes-data";
 
+// Slide geometry (must match the calc() below). One active slide centered,
+// with the neighbours peeking on each side.
+const SLIDE_W = 72; // % of track width
+const GAP_REM = 1; // matches gap-4
+const CENTER_OFFSET = (100 - SLIDE_W) / 2; // % to center the active slide
+
 export function Reels() {
   const { theme, lang } = useLevantes();
   const set = reels[theme];
-  const [i, setI] = useState(0);
-  const trackRef = useRef<HTMLDivElement>(null);
+  const n = set.length;
 
-  useEffect(() => setI(0), [theme]);
+  // Clone last + first onto the ends for a seamless infinite loop.
+  const slides = [set[n - 1], ...set, set[0]];
 
-  const go = (dir: 1 | -1) => setI((v) => (v + dir + set.length) % set.length);
+  // `pos` indexes into the cloned array; real slides live at 1..n.
+  const [pos, setPos] = useState(1);
+  const [animate, setAnimate] = useState(true);
+  const touchStart = useRef<number | null>(null);
 
-  // Image fallback for reel previews — alternating cat photos
+  useEffect(() => {
+    setAnimate(true);
+    setPos(1);
+  }, [theme]);
+
+  const go = (dir: 1 | -1) => {
+    setAnimate(true);
+    setPos((p) => p + dir);
+  };
+
+  // After landing on a clone, snap (without animation) to the matching real slide.
+  const handleTransitionEnd = () => {
+    if (pos === 0) {
+      setAnimate(false);
+      setPos(n);
+    } else if (pos === n + 1) {
+      setAnimate(false);
+      setPos(1);
+    }
+  };
+
+  // Re-enable the transition on the frame after a no-animation snap.
+  useEffect(() => {
+    if (!animate) {
+      const id = requestAnimationFrame(() => setAnimate(true));
+      return () => cancelAnimationFrame(id);
+    }
+  }, [animate]);
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStart.current = e.touches[0].clientX;
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStart.current === null) return;
+    const dx = e.changedTouches[0].clientX - touchStart.current;
+    if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
+    touchStart.current = null;
+  };
+
+  // Real index currently centered (0..n-1), used for dots.
+  const realActive = (pos - 1 + n) % n;
+
+  // Image fallback for reel previews — alternating cat photos.
   const previewFor = (idx: number) => {
-    const keys = ["brunch", "allday", "dinner"] as const;
+    const keys = ["brunch", "allday", "dinner", "cocktails"] as const;
     return imagePairs[keys[idx % keys.length]][theme];
   };
 
@@ -43,25 +94,38 @@ export function Reels() {
 
         <div className="relative overflow-hidden">
           <div
-            ref={trackRef}
-            className="flex gap-5 transition-transform duration-700 ease-[cubic-bezier(0.65,0,0.35,1)]"
-            style={{ transform: `translateX(calc(-${i} * (66% + 1.25rem)))` }}
+            className="flex touch-pan-y"
+            style={{
+              gap: `${GAP_REM}rem`,
+              transform: `translateX(calc(${CENTER_OFFSET}% - ${pos} * (${SLIDE_W}% + ${GAP_REM}rem)))`,
+              transition: animate
+                ? "transform 700ms cubic-bezier(0.65,0,0.35,1)"
+                : "none",
+            }}
+            onTransitionEnd={handleTransitionEnd}
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
           >
-            {set.map((reel, idx) => {
-              const active = idx === i;
+            {slides.map((reel, idx) => {
+              const active = idx === pos;
+              // Map cloned position back to the real reel index for the preview image.
+              const realIdx = (idx - 1 + n) % n;
               return (
                 <a
-                  key={reel.id}
+                  key={`${reel.id}-${idx}`}
                   href="#"
-                  className={`relative flex-shrink-0 overflow-hidden rounded-3xl border border-border/60 shadow-soft transition-all duration-700 ${
-                    active ? "w-[66%] scale-100 opacity-100" : "w-[33%] scale-95 opacity-70"
-                  } aspect-[9/14]`}
-                  style={{ minWidth: active ? "66%" : "33%" }}
+                  aria-hidden={!active}
+                  tabIndex={active ? 0 : -1}
+                  className={`relative aspect-[9/14] flex-shrink-0 overflow-hidden rounded-3xl border border-border/60 shadow-soft transition-all duration-700 ${
+                    active ? "scale-100 opacity-100" : "scale-90 opacity-60"
+                  }`}
+                  style={{ flexBasis: `${SLIDE_W}%`, width: `${SLIDE_W}%` }}
                 >
                   <img
-                    src={previewFor(idx)}
+                    src={previewFor(realIdx)}
                     alt={reel.caption[lang]}
                     loading="lazy"
+                    draggable={false}
                     className="absolute inset-0 size-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-deep/80 via-deep/10 to-transparent" />
@@ -79,9 +143,12 @@ export function Reels() {
           {set.map((_, idx) => (
             <button
               key={idx}
-              onClick={() => setI(idx)}
+              onClick={() => {
+                setAnimate(true);
+                setPos(idx + 1);
+              }}
               aria-label={`Go to reel ${idx + 1}`}
-              className={`h-1.5 rounded-full transition-all ${i === idx ? "w-8 bg-primary" : "w-2 bg-border"}`}
+              className={`h-1.5 rounded-full transition-all ${realActive === idx ? "w-8 bg-primary" : "w-2 bg-border"}`}
             />
           ))}
         </div>

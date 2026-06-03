@@ -36,7 +36,7 @@ export function MenuModal({ category, onClose }: Props) {
       role="dialog"
       aria-modal="true"
       aria-labelledby="menu-title"
-      className="fixed inset-0 z-[100] flex items-stretch justify-center md:items-center md:p-6"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6"
     >
       <button
         aria-label={translations.catalog.close[lang]}
@@ -44,8 +44,8 @@ export function MenuModal({ category, onClose }: Props) {
         className="absolute inset-0 bg-deep/60 backdrop-blur-md animate-in fade-in duration-300"
       />
       <div
-        className="relative z-10 flex w-full max-w-3xl flex-col bg-background shadow-liquid md:rounded-3xl overflow-hidden animate-liquid-reveal"
-        style={{ maxHeight: "100svh" }}
+        className="relative z-10 flex h-full w-full max-w-3xl flex-col overflow-hidden rounded-3xl bg-background shadow-liquid animate-liquid-reveal"
+        style={{ maxHeight: "min(88dvh, 56rem)" }}
       >
         {/* Header */}
         <div className="sticky top-0 z-10 flex items-center justify-between gap-4 border-b border-border bg-background/95 backdrop-blur px-6 py-4 md:px-8">

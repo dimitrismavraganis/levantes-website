@@ -25,7 +25,7 @@ export function TopBar() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3 md:px-8 md:py-4">
         <a href="#top" className="flex items-center gap-2">
-          <img src={logo} alt="Levantes" className="h-8 md:h-10 w-auto" />
+          <img src={logo} alt="Levantes" className="h-11 md:h-16 w-auto" />
           <span className="hidden text-[10px] uppercase tracking-[0.3em] text-muted-foreground md:inline">
             beach · gastro · bar
           </span>
