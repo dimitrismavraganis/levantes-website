@@ -113,7 +113,9 @@ export function Reels() {
               return (
                 <a
                   key={`${reel.id}-${idx}`}
-                  href="#"
+                  href={reel.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-hidden={!active}
                   tabIndex={active ? 0 : -1}
                   className={`relative aspect-[9/14] flex-shrink-0 overflow-hidden rounded-3xl border border-border/60 shadow-soft transition-all duration-700 ${

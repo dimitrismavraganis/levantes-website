@@ -712,17 +712,16 @@ export const translations = {
   },
 } as const;
 
-// Instagram reels — placeholders; replace with real embeds.
 export const reels = {
   day: [
-    { id: "d1", caption: { en: "Morning swim", gr: "Πρωινό μπάνιο" } },
-    { id: "d2", caption: { en: "Brunch by the pool", gr: "Brunch δίπλα στην πισίνα" } },
-    { id: "d3", caption: { en: "Afternoon spritz", gr: "Απογευματινό spritz" } },
+    { id: "d1", url: "https://www.instagram.com/reel/DMF0r52IRtF/", caption: { en: "Morning swim", gr: "Πρωινό μπάνιο" } },
+    { id: "d2", url: "https://www.instagram.com/reel/DMfM_9kIQ5H/", caption: { en: "Brunch by the pool", gr: "Brunch δίπλα στην πισίνα" } },
+    { id: "d3", url: "https://www.instagram.com/reel/DMKJY9JIgpC/", caption: { en: "Afternoon spritz", gr: "Απογευματινό spritz" } },
   ],
   night: [
-    { id: "n1", caption: { en: "Sunset sessions", gr: "Sunset sessions" } },
-    { id: "n2", caption: { en: "Candlelit dinner", gr: "Δείπνο με κεριά" } },
-    { id: "n3", caption: { en: "Last call", gr: "Τελευταία παραγγελία" } },
+    { id: "n1", url: "https://www.instagram.com/reel/DMF0r52IRtF/", caption: { en: "Sunset sessions", gr: "Sunset sessions" } },
+    { id: "n2", url: "https://www.instagram.com/reel/DMfM_9kIQ5H/", caption: { en: "Candlelit dinner", gr: "Δείπνο με κεριά" } },
+    { id: "n3", url: "https://www.instagram.com/reel/DMKJY9JIgpC/", caption: { en: "Last call", gr: "Τελευταία παραγγελία" } },
   ],
 };
 
