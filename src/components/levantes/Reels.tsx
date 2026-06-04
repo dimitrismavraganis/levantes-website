@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight, Instagram, Play, X } from "lucide-react";
 import { useLevantes } from "@/lib/levantes-context";
-import { activeReels, translations } from "@/lib/levantes-data";
+import { activeReels, imagePairs, translations } from "@/lib/levantes-data";
 
 declare global {
   interface Window {
@@ -13,6 +13,75 @@ const SLIDE_W = 72;
 const GAP_REM = 1;
 const CENTER_OFFSET = (100 - SLIDE_W) / 2;
 
+// Thumbnail images for the carousel previews (fixed — not day/night).
+const previewImages = [
+  imagePairs.brunch.day,
+  imagePairs.allday.day,
+  imagePairs.dinner.day,
+];
+
+// Lightbox: injects a blockquote via innerHTML so React never tries to
+// reconcile the node after Instagram's embed.js replaces it with an iframe.
+function InstagramLightbox({
+  reelId,
+  onClose,
+}: {
+  reelId: string;
+  onClose: () => void;
+}) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    containerRef.current.innerHTML = `
+      <blockquote
+        class="instagram-media"
+        data-instgrm-permalink="https://www.instagram.com/reel/${reelId}/"
+        data-instgrm-version="14"
+        style="margin:0 auto;max-width:540px;min-width:280px;width:100%;"
+      ></blockquote>`;
+    window.instgrm?.Embeds.process();
+  }, [reelId]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-6"
+    >
+      {/* Backdrop */}
+      <button
+        aria-label="Close"
+        onClick={onClose}
+        className="absolute inset-0 bg-deep/75 backdrop-blur-md animate-in fade-in duration-300"
+      />
+
+      {/* Modal */}
+      <div className="relative z-10 w-full max-w-[540px] animate-in zoom-in-95 fade-in duration-300">
+        <button
+          onClick={onClose}
+          aria-label="Close"
+          className="absolute -right-3 -top-3 z-10 rounded-full border border-border bg-card p-2 shadow-lg"
+        >
+          <X className="size-4" />
+        </button>
+        {/* Instagram injects its iframe here */}
+        <div ref={containerRef} className="overflow-hidden rounded-2xl" />
+      </div>
+    </div>
+  );
+}
+
 export function Reels() {
   const { lang } = useLevantes();
   const n = activeReels.length;
@@ -20,9 +89,10 @@ export function Reels() {
 
   const [pos, setPos] = useState(1);
   const [animate, setAnimate] = useState(true);
+  const [lightboxId, setLightboxId] = useState<string | null>(null);
   const touchStart = useRef<number | null>(null);
 
-  // Load Instagram embed.js once; it auto-processes all blockquotes on load.
+  // Load Instagram embed.js once on mount.
   useEffect(() => {
     if (!document.getElementById("ig-embed-script")) {
       const s = document.createElement("script");
@@ -32,11 +102,6 @@ export function Reels() {
       document.body.appendChild(s);
     }
   }, []);
-
-  // Re-process any unprocessed blockquotes after navigation.
-  useEffect(() => {
-    window.instgrm?.Embeds.process();
-  }, [pos]);
 
   const go = (dir: 1 | -1) => {
     setAnimate(true);
@@ -72,6 +137,8 @@ export function Reels() {
 
   const realActive = (pos - 1 + n) % n;
 
+  const handleClose = useCallback(() => setLightboxId(null), []);
+
   return (
     <section id="reels" className="relative px-5 py-20 md:px-8 md:py-28">
       <div className="mx-auto max-w-7xl">
@@ -85,10 +152,18 @@ export function Reels() {
             </h2>
           </div>
           <div className="flex gap-2">
-            <button onClick={() => go(-1)} aria-label="Previous" className="liquid-btn rounded-full border border-border bg-card p-3">
+            <button
+              onClick={() => go(-1)}
+              aria-label="Previous"
+              className="liquid-btn rounded-full border border-border bg-card p-3"
+            >
               <ChevronLeft className="relative z-10 size-4" />
             </button>
-            <button onClick={() => go(1)} aria-label="Next" className="liquid-btn rounded-full border border-border bg-card p-3">
+            <button
+              onClick={() => go(1)}
+              aria-label="Next"
+              className="liquid-btn rounded-full border border-border bg-card p-3"
+            >
               <ChevronRight className="relative z-10 size-4" />
             </button>
           </div>
@@ -96,7 +171,7 @@ export function Reels() {
 
         <div className="relative overflow-hidden">
           <div
-            className="flex touch-pan-y items-start"
+            className="flex touch-pan-y"
             style={{
               gap: `${GAP_REM}rem`,
               transform: `translateX(calc(${CENTER_OFFSET}% - ${pos} * (${SLIDE_W}% + ${GAP_REM}rem)))`,
@@ -110,35 +185,43 @@ export function Reels() {
           >
             {slides.map((reel, idx) => {
               const active = idx === pos;
+              const realIdx = (idx - 1 + n) % n;
               return (
-                <div
+                <button
                   key={`${reel.id}-${idx}`}
                   aria-hidden={!active}
-                  className={`flex-shrink-0 overflow-hidden rounded-3xl border border-border/60 shadow-soft transition-all duration-700 bg-card ${
-                    active ? "scale-100 opacity-100" : "scale-90 opacity-60"
+                  tabIndex={active ? 0 : -1}
+                  onClick={() => active && reel.instagramId && setLightboxId(reel.instagramId)}
+                  className={`group relative aspect-[9/14] flex-shrink-0 overflow-hidden rounded-3xl border border-border/60 shadow-soft transition-all duration-700 ${
+                    active ? "scale-100 opacity-100 cursor-pointer" : "scale-90 opacity-60 cursor-default"
                   }`}
-                  style={{
-                    flexBasis: `${SLIDE_W}%`,
-                    width: `${SLIDE_W}%`,
-                    pointerEvents: active ? "auto" : "none",
-                  }}
+                  style={{ flexBasis: `${SLIDE_W}%`, width: `${SLIDE_W}%` }}
                 >
-                  {/* Instagram replaces this blockquote with an iframe on load */}
-                  <blockquote
-                    className="instagram-media"
-                    data-instgrm-permalink={`https://www.instagram.com/reel/${reel.instagramId}/`}
-                    data-instgrm-version="14"
-                    style={{
-                      background: "transparent",
-                      border: 0,
-                      borderRadius: 0,
-                      margin: 0,
-                      maxWidth: "100%",
-                      minWidth: 280,
-                      width: "100%",
-                    }}
+                  {/* Thumbnail */}
+                  <img
+                    src={previewImages[realIdx % previewImages.length]}
+                    alt=""
+                    loading="lazy"
+                    draggable={false}
+                    className="absolute inset-0 size-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105"
                   />
-                </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-deep/80 via-deep/20 to-transparent" />
+
+                  {/* Play button */}
+                  {active && (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="flex size-16 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm ring-1 ring-white/40 transition-transform duration-300 group-hover:scale-110">
+                        <Play className="size-7 fill-white text-white translate-x-0.5" />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Instagram badge */}
+                  <div className="absolute right-4 top-4 flex items-center gap-1.5 rounded-full bg-deep/50 px-2.5 py-1 text-foam backdrop-blur-sm">
+                    <Instagram className="size-3.5" />
+                    <span className="text-[10px] font-medium uppercase tracking-wider">Reel</span>
+                  </div>
+                </button>
               );
             })}
           </div>
@@ -160,6 +243,10 @@ export function Reels() {
           ))}
         </div>
       </div>
+
+      {lightboxId && (
+        <InstagramLightbox reelId={lightboxId} onClose={handleClose} />
+      )}
     </section>
   );
 }
