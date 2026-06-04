@@ -34,7 +34,7 @@ export function Catalog() {
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 md:gap-6">
           {categories.map((cat) => {
-            const img = imagePairs[cat.id][theme];
+            const img = imagePairs[cat.id].day;
             return (
               <button
                 key={cat.id}

@@ -70,11 +70,16 @@ export function MenuModal({ category, onClose }: Props) {
         <div className="flex-1 overflow-y-auto px-6 py-8 md:px-10 md:py-10">
           {category.sections.map((section, sIdx) => (
             <section key={sIdx} className="mb-10 last:mb-0">
-              <div className="mb-4 flex items-center gap-3">
-                <h3 className="font-body text-lg font-bold text-primary md:text-xl">
-                  {section.title[lang]}
-                </h3>
-                <div className="h-px flex-1 bg-border" />
+              <div className="mb-4">
+                <div className="flex items-center gap-3">
+                  <h3 className="font-body text-lg font-bold text-primary md:text-xl">
+                    {section.title[lang]}
+                  </h3>
+                  <div className="h-px flex-1 bg-border" />
+                </div>
+                {section.hours && (
+                  <p className="mt-0.5 text-xs text-muted-foreground">{section.hours[lang]}</p>
+                )}
               </div>
               <ul className="divide-y divide-border/60">
                 {section.items.map((dish, dIdx) => (

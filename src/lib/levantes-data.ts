@@ -38,6 +38,7 @@ export interface Dish {
 
 export interface MenuSection {
   title: { en: string; gr: string };
+  hours?: { en: string; gr: string };
   items: Dish[];
 }
 
@@ -56,6 +57,7 @@ export const categories: Category[] = [
     sections: [
       {
         title: { en: "Sandwiches", gr: "Σάντουιτς" },
+        hours: { en: "10:00 – 19:00", gr: "10:00 – 19:00" },
         items: [
           {
             name: { en: "Club Sandwich (Deli)", gr: "Club Sandwich Αλλαντικών" },
@@ -81,6 +83,7 @@ export const categories: Category[] = [
       },
       {
         title: { en: "Eggs & More", gr: "Αυγά & Άλλα" },
+        hours: { en: "10:00 – 13:00", gr: "10:00 – 13:00" },
         items: [
           {
             name: { en: "Plain Omelette", gr: "Ομελέτα Απλή" },
@@ -140,7 +143,7 @@ export const categories: Category[] = [
         ],
       },
       {
-        title: { en: "Juices & Cold Drinks", gr: "Χυμοί & Ψυκτικά" },
+        title: { en: "Juices & Beverages *", gr: "Χυμοί & Ροφήματα *" },
         items: [
           { name: { en: "Fresh Orange Juice", gr: "Φυσικός Χυμός Πορτοκάλι" }, desc: { en: "", gr: "" }, price: "€5.5" },
           { name: { en: "Fresh Mixed Juice", gr: "Φυσικός Χυμός Ανάμεικτος" }, desc: { en: "", gr: "" }, price: "€6.5" },
@@ -176,18 +179,24 @@ export const categories: Category[] = [
           { name: { en: "Three Cents Pink Grapefruit", gr: "Three Cents Pink Grapefruit" }, desc: { en: "200 ml", gr: "200 ml" }, price: "€4.5" },
           { name: { en: "Water", gr: "Νερό" }, desc: { en: "0.5 l", gr: "0,5 l" }, price: "€0.5" },
           { name: { en: "Water", gr: "Νερό" }, desc: { en: "1 l", gr: "1 l" }, price: "€1" },
-          { name: { en: "Sparkling Water", gr: "Ξινό Νερό" }, desc: { en: "250 ml", gr: "250 ml" }, price: "€3.5" },
-          { name: { en: "Sparkling Water", gr: "Ξινό Νερό" }, desc: { en: "750 ml", gr: "750 ml" }, price: "€7.5" },
+          { name: { en: "Sparkling Water *", gr: "Ξινό Νερό *" }, desc: { en: "250 ml", gr: "250 ml" }, price: "€3.5" },
+          { name: { en: "Sparkling Water *", gr: "Ξινό Νερό *" }, desc: { en: "750 ml", gr: "750 ml" }, price: "€7.5" },
         ],
       },
       {
-        title: { en: "Beers & Ice Cream", gr: "Μπύρες & Παγωτά" },
+        title: { en: "Beers", gr: "Μπύρες" },
         items: [
           { name: { en: "Corona", gr: "Corona" }, desc: { en: "330 ml", gr: "330 ml" }, price: "€5.5" },
           { name: { en: "Stella 0%", gr: "Stella 0%" }, desc: { en: "330 ml", gr: "330 ml" }, price: "€4" },
           { name: { en: "Franziskaner WEIS", gr: "Franziskaner WEIS" }, desc: { en: "500 ml", gr: "500 ml" }, price: "€6.5" },
           { name: { en: "Stella Artois", gr: "Stella Artois" }, desc: { en: "330 ml", gr: "330 ml" }, price: "€5" },
           { name: { en: "Stella Artois", gr: "Stella Artois" }, desc: { en: "500 ml", gr: "500 ml" }, price: "€6" },
+          { name: { en: "Stella Artois Draft *", gr: "Stella Artois Draft *" }, desc: { en: "", gr: "" }, price: "€6" },
+        ],
+      },
+      {
+        title: { en: "Ice Cream", gr: "Παγωτά" },
+        items: [
           { name: { en: "Chocolate Ice Cream", gr: "Παγωτό Σοκολάτα" }, desc: { en: "", gr: "" }, price: "€2.5" },
           { name: { en: "Strawberry Ice Cream", gr: "Παγωτό Φράουλα" }, desc: { en: "", gr: "" }, price: "€2.5" },
           { name: { en: "Caramel Ice Cream", gr: "Παγωτό Καραμέλα" }, desc: { en: "", gr: "" }, price: "€2.5" },
@@ -209,33 +218,6 @@ export const categories: Category[] = [
     label: { en: "All Day", gr: "Όλη Μέρα" },
     tagline: { en: "Sun-soaked plates", gr: "Πιάτα για όλη τη μέρα" },
     sections: [
-      {
-        title: { en: "Salads (S / L)", gr: "Σαλάτες (Μικρή / Μεγάλη)" },
-        items: [
-          {
-            name: { en: "Manouri", gr: "Μανούρι" },
-            desc: { en: "Fresh iceberg, baby spinach, rocket, French lettuce, grilled manouri cheese, prosciutto, raisins, hazelnut dust, citrus dressing, balsamic.", gr: "Δροσερό iceberg, baby σπανάκι, ρόκα, γαλλικό μαρούλι, ψητό μανούρι, προσούτο, σταφίδες, πούδρα φουντουκιού, σάλτσα εσπεριδοειδών, βαλσάμικο." },
-            price: "€7.5 / €11",
-          },
-          {
-            name: { en: "Burrata", gr: "Bourrata" },
-            desc: { en: "Toasted village bread bruschetta, marinated tomato, rocket, prosciutto, mozzarella.", gr: "Μπρουσκέτα από χωριάτικο ψωμί ψητό, μαριναρισμένη ντομάτα, ροκά, προσούτο, μοτσαρέλα." },
-            price: "€7.5 / €11",
-          },
-          {
-            name: { en: "Caesar's", gr: "Caesar's" },
-            desc: { en: "Green leaves, chicken fillet, crispy bacon, parmesan, croutons, Caesar's sauce.", gr: "Πράσινα λαχανικά, φιλέτο κοτόπουλο, ψητό μπέικον, παρμεζάνα, κρουτόν, Caesar's σως." },
-            price: "€7.5 / €11",
-            tags: ["signature"],
-          },
-          {
-            name: { en: "Greek Salad", gr: "Χωριάτικη" },
-            desc: { en: "Tomato, cucumber, peppers, onion, olives, feta.", gr: "Ντομάτα, αγγούρι, πιπεριές, κρεμμύδι, ελιές, φέτα." },
-            price: "€7.5 / €11",
-            tags: ["v"],
-          },
-        ],
-      },
       {
         title: { en: "Starters", gr: "Ορεκτικά" },
         items: [
@@ -299,6 +281,33 @@ export const categories: Category[] = [
             name: { en: "Homemade Meatballs", gr: "Κεφτεδάκια" },
             desc: { en: "Handmade meatballs with tomato sauce.", gr: "Χειροποίητα με σάλτσα ντομάτας." },
             price: "€8",
+          },
+        ],
+      },
+      {
+        title: { en: "Salads (S / L)", gr: "Σαλάτες (Μικρή / Μεγάλη)" },
+        items: [
+          {
+            name: { en: "Manouri", gr: "Μανούρι" },
+            desc: { en: "Fresh iceberg, baby spinach, rocket, French lettuce, grilled manouri cheese, prosciutto, raisins, hazelnut dust, citrus dressing, balsamic.", gr: "Δροσερό iceberg, baby σπανάκι, ρόκα, γαλλικό μαρούλι, ψητό μανούρι, προσούτο, σταφίδες, πούδρα φουντουκιού, σάλτσα εσπεριδοειδών, βαλσάμικο." },
+            price: "€7.5 / €11",
+          },
+          {
+            name: { en: "Burrata", gr: "Bourrata" },
+            desc: { en: "Toasted village bread bruschetta, marinated tomato, rocket, prosciutto, mozzarella.", gr: "Μπρουσκέτα από χωριάτικο ψωμί ψητό, μαριναρισμένη ντομάτα, ροκά, προσούτο, μοτσαρέλα." },
+            price: "€7.5 / €11",
+          },
+          {
+            name: { en: "Caesar's", gr: "Caesar's" },
+            desc: { en: "Green leaves, chicken fillet, crispy bacon, parmesan, croutons, Caesar's sauce.", gr: "Πράσινα λαχανικά, φιλέτο κοτόπουλο, ψητό μπέικον, παρμεζάνα, κρουτόν, Caesar's σως." },
+            price: "€7.5 / €11",
+            tags: ["signature"],
+          },
+          {
+            name: { en: "Greek Salad", gr: "Χωριάτικη" },
+            desc: { en: "Tomato, cucumber, peppers, onion, olives, feta.", gr: "Ντομάτα, αγγούρι, πιπεριές, κρεμμύδι, ελιές, φέτα." },
+            price: "€7.5 / €11",
+            tags: ["v"],
           },
         ],
       },
@@ -424,7 +433,6 @@ export const categories: Category[] = [
             name: { en: "Baked American Cheesecake", gr: "American Cheesecake Φούρνου" },
             desc: { en: "With cherry jam.", gr: "Με μαρμελάδα κεράσι." },
             price: "€7",
-            tags: ["v"],
           },
           {
             name: { en: "Stick Brownies", gr: "Stick Brownies" },
@@ -490,6 +498,27 @@ export const categories: Category[] = [
         ],
       },
       {
+        title: { en: "Salads", gr: "Σαλάτες" },
+        items: [
+          {
+            name: { en: "Mango Sea Breeze", gr: "Mango Sea Breeze" },
+            desc: { en: "Mixed salad with baby rocket, quinoa, poached shrimp, mango & orange with tropical fruit dressing.", gr: "Ανάμεικτη σαλάτα με baby ρόκα, κινόα, γαρίδες ποσέ, σάρκα μάνγκο & πορτοκάλι με ντρέσινγκ τροπικών φρούτων." },
+            price: "€13",
+            tags: ["signature"],
+          },
+          {
+            name: { en: "Chicken Velvet", gr: "Κοτόπουλο Velvet" },
+            desc: { en: "Chicken sticks on mixed salad with avocado & green apple, marinated with light mustard sauce.", gr: "Στικ κοτόπουλο σε βάση από ανάμεικτη σαλάτα με αβοκάντο & πράσινο μήλο, μαριναρισμένα με ελαφριά σάλτσα μουστάρδας." },
+            price: "€12",
+          },
+          {
+            name: { en: "Beef with Cheese Mousse", gr: "Μοσχάρι Μους Τυριών" },
+            desc: { en: "Zucchini, carrot, cucumber & fennel tagliatelle with cucumber vinaigrette, beef tagliata, baby spinach, mixed salad, French cheese mousse, melon & balsamic.", gr: "Ταλιατέλες από κολοκύθι – καρότο – αγγούρι – φινόκιο με λαδολέμονο, ταλιάτα μοσχαριού, baby σπανάκι, μους γαλλικού τυριού, υφές πεπόνι & βαλσάμικο." },
+            price: "€14",
+          },
+        ],
+      },
+      {
         title: { en: "Pasta", gr: "Ζυμαρικά" },
         items: [
           {
@@ -544,27 +573,6 @@ export const categories: Category[] = [
             desc: { en: "Beef tomahawk steak, served with café de Paris butter.", gr: "Μοσχαρίσια μπριζόλα 1 kg, σερβίρεται με βούτυρο café de Paris." },
             price: "€40",
             tags: ["signature"],
-          },
-        ],
-      },
-      {
-        title: { en: "Salads", gr: "Σαλάτες" },
-        items: [
-          {
-            name: { en: "Mango Sea Breeze", gr: "Mango Sea Breeze" },
-            desc: { en: "Mixed salad with baby rocket, quinoa, poached shrimp, mango & orange with tropical fruit dressing.", gr: "Ανάμεικτη σαλάτα με baby ρόκα, κινόα, γαρίδες ποσέ, σάρκα μάνγκο & πορτοκάλι με ντρέσινγκ τροπικών φρούτων." },
-            price: "€13",
-            tags: ["signature"],
-          },
-          {
-            name: { en: "Chicken Velvet", gr: "Κοτόπουλο Velvet" },
-            desc: { en: "Chicken sticks on mixed salad with avocado & green apple, marinated with light mustard sauce.", gr: "Στικ κοτόπουλο σε βάση από ανάμεικτη σαλάτα με αβοκάντο & πράσινο μήλο, μαριναρισμένα με ελαφριά σάλτσα μουστάρδας." },
-            price: "€12",
-          },
-          {
-            name: { en: "Beef with Cheese Mousse", gr: "Μοσχάρι Μους Τυριών" },
-            desc: { en: "Zucchini, carrot, cucumber & fennel tagliatelle with cucumber vinaigrette, beef tagliata, baby spinach, mixed salad, French cheese mousse, melon & balsamic.", gr: "Ταλιατέλες από κολοκύθι – καρότο – αγγούρι – φινόκιο με λαδολέμονο, ταλιάτα μοσχαριού, baby σπανάκι, μους γαλλικού τυριού, υφές πεπόνι & βαλσάμικο." },
-            price: "€14",
           },
         ],
       },
