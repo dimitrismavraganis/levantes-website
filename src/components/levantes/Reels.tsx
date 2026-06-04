@@ -1,38 +1,48 @@
 import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, Instagram } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useLevantes } from "@/lib/levantes-context";
-import { reels, translations, imagePairs } from "@/lib/levantes-data";
+import { activeReels, translations } from "@/lib/levantes-data";
 
-// Slide geometry (must match the calc() below). One active slide centered,
-// with the neighbours peeking on each side.
-const SLIDE_W = 72; // % of track width
-const GAP_REM = 1; // matches gap-4
-const CENTER_OFFSET = (100 - SLIDE_W) / 2; // % to center the active slide
+declare global {
+  interface Window {
+    instgrm?: { Embeds: { process: () => void } };
+  }
+}
+
+const SLIDE_W = 72;
+const GAP_REM = 1;
+const CENTER_OFFSET = (100 - SLIDE_W) / 2;
 
 export function Reels() {
-  const { theme, lang } = useLevantes();
-  const set = reels[theme];
-  const n = set.length;
+  const { lang } = useLevantes();
+  const n = activeReels.length;
+  const slides = [activeReels[n - 1], ...activeReels, activeReels[0]];
 
-  // Clone last + first onto the ends for a seamless infinite loop.
-  const slides = [set[n - 1], ...set, set[0]];
-
-  // `pos` indexes into the cloned array; real slides live at 1..n.
   const [pos, setPos] = useState(1);
   const [animate, setAnimate] = useState(true);
   const touchStart = useRef<number | null>(null);
 
+  // Load Instagram embed.js once; it auto-processes all blockquotes on load.
   useEffect(() => {
-    setAnimate(true);
-    setPos(1);
-  }, [theme]);
+    if (!document.getElementById("ig-embed-script")) {
+      const s = document.createElement("script");
+      s.id = "ig-embed-script";
+      s.async = true;
+      s.src = "https://www.instagram.com/embed.js";
+      document.body.appendChild(s);
+    }
+  }, []);
+
+  // Re-process any unprocessed blockquotes after navigation.
+  useEffect(() => {
+    window.instgrm?.Embeds.process();
+  }, [pos]);
 
   const go = (dir: 1 | -1) => {
     setAnimate(true);
     setPos((p) => p + dir);
   };
 
-  // After landing on a clone, snap (without animation) to the matching real slide.
   const handleTransitionEnd = () => {
     if (pos === 0) {
       setAnimate(false);
@@ -43,7 +53,6 @@ export function Reels() {
     }
   };
 
-  // Re-enable the transition on the frame after a no-animation snap.
   useEffect(() => {
     if (!animate) {
       const id = requestAnimationFrame(() => setAnimate(true));
@@ -61,14 +70,7 @@ export function Reels() {
     touchStart.current = null;
   };
 
-  // Real index currently centered (0..n-1), used for dots.
   const realActive = (pos - 1 + n) % n;
-
-  // Image fallback for reel previews — alternating cat photos.
-  const previewFor = (idx: number) => {
-    const keys = ["brunch", "allday", "dinner", "cocktails"] as const;
-    return imagePairs[keys[idx % keys.length]][theme];
-  };
 
   return (
     <section id="reels" className="relative px-5 py-20 md:px-8 md:py-28">
@@ -94,7 +96,7 @@ export function Reels() {
 
         <div className="relative overflow-hidden">
           <div
-            className="flex touch-pan-y"
+            className="flex touch-pan-y items-start"
             style={{
               gap: `${GAP_REM}rem`,
               transform: `translateX(calc(${CENTER_OFFSET}% - ${pos} * (${SLIDE_W}% + ${GAP_REM}rem)))`,
@@ -108,39 +110,42 @@ export function Reels() {
           >
             {slides.map((reel, idx) => {
               const active = idx === pos;
-              // Map cloned position back to the real reel index for the preview image.
-              const realIdx = (idx - 1 + n) % n;
               return (
-                <a
+                <div
                   key={`${reel.id}-${idx}`}
-                  href="#"
                   aria-hidden={!active}
-                  tabIndex={active ? 0 : -1}
-                  className={`relative aspect-[9/14] flex-shrink-0 overflow-hidden rounded-3xl border border-border/60 shadow-soft transition-all duration-700 ${
+                  className={`flex-shrink-0 overflow-hidden rounded-3xl border border-border/60 shadow-soft transition-all duration-700 bg-card ${
                     active ? "scale-100 opacity-100" : "scale-90 opacity-60"
                   }`}
-                  style={{ flexBasis: `${SLIDE_W}%`, width: `${SLIDE_W}%` }}
+                  style={{
+                    flexBasis: `${SLIDE_W}%`,
+                    width: `${SLIDE_W}%`,
+                    pointerEvents: active ? "auto" : "none",
+                  }}
                 >
-                  <img
-                    src={previewFor(realIdx)}
-                    alt={reel.caption[lang]}
-                    loading="lazy"
-                    draggable={false}
-                    className="absolute inset-0 size-full object-cover"
+                  {/* Instagram replaces this blockquote with an iframe on load */}
+                  <blockquote
+                    className="instagram-media"
+                    data-instgrm-permalink={`https://www.instagram.com/reel/${reel.instagramId}/`}
+                    data-instgrm-version="14"
+                    style={{
+                      background: "transparent",
+                      border: 0,
+                      borderRadius: 0,
+                      margin: 0,
+                      maxWidth: "100%",
+                      minWidth: 280,
+                      width: "100%",
+                    }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-deep/80 via-deep/10 to-transparent" />
-                  <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-5 text-foam">
-                    <p className="font-display text-xl md:text-2xl">{reel.caption[lang]}</p>
-                    <Instagram className="size-5 opacity-90" />
-                  </div>
-                </a>
+                </div>
               );
             })}
           </div>
         </div>
 
         <div className="mt-6 flex justify-center gap-2">
-          {set.map((_, idx) => (
+          {activeReels.map((_, idx) => (
             <button
               key={idx}
               onClick={() => {
@@ -148,7 +153,9 @@ export function Reels() {
                 setPos(idx + 1);
               }}
               aria-label={`Go to reel ${idx + 1}`}
-              className={`h-1.5 rounded-full transition-all ${realActive === idx ? "w-8 bg-primary" : "w-2 bg-border"}`}
+              className={`h-1.5 rounded-full transition-all ${
+                realActive === idx ? "w-8 bg-primary" : "w-2 bg-border"
+              }`}
             />
           ))}
         </div>

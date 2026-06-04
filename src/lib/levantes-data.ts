@@ -712,8 +712,14 @@ export const translations = {
   },
 } as const;
 
-// Instagram reels — placeholders; replace with real embeds.
-export const reels = {
+export interface ReelItem {
+  id: string;
+  instagramId?: string;
+  caption: { en: string; gr: string };
+}
+
+// Reserved for future day/night split — not currently used for display.
+export const reels: Record<"day" | "night", ReelItem[]> = {
   day: [
     { id: "d1", caption: { en: "Morning swim", gr: "Πρωινό μπάνιο" } },
     { id: "d2", caption: { en: "Brunch by the pool", gr: "Brunch δίπλα στην πισίνα" } },
@@ -725,6 +731,13 @@ export const reels = {
     { id: "n3", caption: { en: "Last call", gr: "Τελευταία παραγγελία" } },
   ],
 };
+
+// Active reels shown on the website (same day/night for now).
+export const activeReels: ReelItem[] = [
+  { id: "r1", instagramId: "DMF0r52IRtF", caption: { en: "On the feed", gr: "Στο feed" } },
+  { id: "r2", instagramId: "DMfM_9kIQ5H", caption: { en: "On the feed", gr: "Στο feed" } },
+  { id: "r3", instagramId: "DMKJY9JIgpC", caption: { en: "On the feed", gr: "Στο feed" } },
+];
 
 export const contact = {
   phone: "+30 2741048198",
