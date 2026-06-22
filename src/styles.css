@@ -144,15 +144,30 @@
   50% { transform: translateX(-25%) scaleY(1.05); }
 }
 @keyframes liquid-reveal {
-  0% { clip-path: circle(0% at 50% 100%); opacity: 0.6; }
-  100% { clip-path: circle(150% at 50% 50%); opacity: 1; }
+  0% {
+    -webkit-clip-path: circle(0% at 50% 100%);
+    clip-path: circle(0% at 50% 100%);
+    opacity: 0;
+    transform: translateY(18px) scale(0.96);
+  }
+  100% {
+    -webkit-clip-path: circle(150% at 50% 50%);
+    clip-path: circle(150% at 50% 50%);
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 @keyframes fade-up {
   0% { opacity: 0; transform: translateY(24px); }
   100% { opacity: 1; transform: translateY(0); }
 }
 
-.animate-liquid-reveal { animation: liquid-reveal 1.6s cubic-bezier(0.65, 0, 0.35, 1) both; }
+.animate-liquid-reveal {
+  animation: liquid-reveal 1.6s cubic-bezier(0.65, 0, 0.35, 1) both;
+  will-change: clip-path, transform, opacity;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
 .animate-fade-up { animation: fade-up 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
 
 /* Liquid button: gooey hover blob */
