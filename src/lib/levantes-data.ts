@@ -580,7 +580,7 @@ export const categories: Category[] = [
   },
   {
     id: "cocktails",
-    label: { en: "Cocktails", gr: "Cocktails" },
+    label: { en: "Cocktails & Wines", gr: "Cocktails & Wines" },
     tagline: { en: "From dusk to last call", gr: "Από τη δύση έως το τελευταίο ποτό" },
     sections: [
       {
@@ -647,6 +647,111 @@ export const categories: Category[] = [
             name: { en: "Paloma", gr: "Paloma" },
             desc: { en: "Tequila blanco, lime, Three Cents pink grapefruit soda, salt.", gr: "Tequila blanco, lime, Three Cents pink grapefruit soda, salt." },
             price: "€9",
+          },
+        ],
+      },
+      {
+        title: { en: "Dry White", gr: "Λευκά Ξηρά" },
+        items: [
+          {
+            name: { en: "Barafaka Magic Van", gr: "Μπαραφάκα Magic Van" },
+            desc: { en: "Moschoudi, Chardonnay.", gr: "Μοσχούδι, Chardonnay." },
+            price: "€4 / €19",
+          },
+          {
+            name: { en: "Papaioannou Aristocracy", gr: "Παπαϊωάννου Aristocracy" },
+            desc: { en: "Sauvignon Blanc, Gewürztraminer.", gr: "Sauvignon Blanc, Gewürztraminer." },
+            price: "€22",
+          },
+          {
+            name: { en: "Tselepos Estate Mantineia", gr: "Τσέλεπου Κτήμα Μαντινεία" },
+            desc: { en: "Moschofilero.", gr: "Μοσχοφίλερο." },
+            price: "€24",
+          },
+          {
+            name: { en: "Ieropoulos Kydonitsa", gr: "Ιερόπουλος Κυδωνίτσα" },
+            desc: { en: "Kydonitsa.", gr: "Κυδωνίτσα." },
+            price: "€25",
+          },
+          {
+            name: { en: "Costa Lazaridi Chateau Julia Chardonnay", gr: "Λαζαρίδη Κώστα Chateau Julia Chardonnay" },
+            desc: { en: "Chardonnay.", gr: "Chardonnay." },
+            price: "€26",
+          },
+          {
+            name: { en: "Porto Carras Assyrtiko", gr: "Πόρτο Καρράς Ασύρτικο" },
+            desc: { en: "Assyrtiko.", gr: "Ασύρτικο." },
+            price: "€27",
+          },
+          {
+            name: { en: "Gerovassiliou Estate", gr: "Γεροβασιλείου Κτήμα" },
+            desc: { en: "Malagouzia, Assyrtiko.", gr: "Μαλαγουζιά, Ασύρτικο." },
+            price: "€28",
+          },
+          {
+            name: { en: "Kappa Estate X-Loco Assyrtiko", gr: "Κάππα Κτήμα X-Loco Ασύρτικο" },
+            desc: { en: "Assyrtiko.", gr: "Ασύρτικο." },
+            price: "€32",
+          },
+          {
+            name: { en: "Alpha Estate Malagouzia", gr: "Άλφα Κτήμα Μαλαγουζιά" },
+            desc: { en: "Malagouzia.", gr: "Μαλαγουζιά." },
+            price: "€26",
+          },
+        ],
+      },
+      {
+        title: { en: "Dry Rosé", gr: "Ροζέ Ξηρά" },
+        items: [
+          {
+            name: { en: "Barafaka Saint Modesto", gr: "Μπαραφάκα Saint Modesto" },
+            desc: { en: "Agiorgitiko, Grenache Rouge.", gr: "Αγιωργίτικο, Grenache Rouge." },
+            price: "€5 / €24",
+          },
+          {
+            name: { en: "Lantidi Mikri Kivotos", gr: "Λαντίδη Μικρή Κιβωτός" },
+            desc: { en: "Moschofilero.", gr: "Μοσχοφίλερο." },
+            price: "€23",
+          },
+          {
+            name: { en: "Novus Acuarella", gr: "Novus Acuarella" },
+            desc: { en: "Assyrtiko, Syrah, Moschofilero.", gr: "Ασύρτικο, Syrah, Μοσχοφίλερο." },
+            price: "€25",
+          },
+        ],
+      },
+      {
+        title: { en: "Dry Red", gr: "Ερυθρά Ξηρά" },
+        items: [
+          {
+            name: { en: "Lantidi Ergo Nemea", gr: "Λαντίδη Έργο Νεμέα" },
+            desc: { en: "Agiorgitiko.", gr: "Αγιωργίτικο." },
+            price: "€24",
+          },
+          {
+            name: { en: "Barafaka Magic Van", gr: "Μπαραφάκα Magic Van" },
+            desc: { en: "Merlot, Agiorgitiko.", gr: "Merlot, Αγιωργίτικο." },
+            price: "€20",
+          },
+        ],
+      },
+      {
+        title: { en: "Semi-sweet / Semi-sparkling", gr: "Ημίγλυκα / Ημιαφρώδη" },
+        items: [
+          {
+            name: { en: "Barafaka Three Witches", gr: "Μπαραφάκα Τρεις Μάγισσες" },
+            desc: { en: "Agiorgitiko, Syrah, Moschofilero.", gr: "Αγιωργίτικο, Syrah, Μοσχοφίλερο." },
+            price: "€27",
+          },
+          {
+            name: { en: "Moropoulou Noemvris Moschofilero", gr: "Μωροπούλου Νοέμβρης Μοσχοφίλερο Ημίξηρο" },
+            desc: { en: "Off-dry Moschofilero.", gr: "Ημίξηρο Μοσχοφίλερο." },
+            price: "€27",
+          },
+          {
+            name: { en: "Antico Monastero Moscato d'Asti DOCG", gr: "Antico Monastero Moscato d'Asti DOCG" },
+            desc: { en: "Moscato d'Asti DOCG.", gr: "Moscato d'Asti DOCG." },
+            price: "€5 / €23",
           },
         ],
       },
