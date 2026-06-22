@@ -163,8 +163,8 @@
 }
 
 .animate-liquid-reveal {
-  animation: liquid-reveal 1.6s cubic-bezier(0.65, 0, 0.35, 1) both;
-  will-change: clip-path, transform, opacity;
+  animation: liquid-reveal 0.95s cubic-bezier(0.22, 1, 0.36, 1) both;
+  will-change: transform, opacity;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
