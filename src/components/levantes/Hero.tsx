@@ -1,7 +1,7 @@
 import { useLevantes } from "@/lib/levantes-context";
 import { imagePairs, translations } from "@/lib/levantes-data";
 import { LiquidButton } from "./LiquidButton";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Star } from "lucide-react";
 
 export function Hero() {
   const { theme, lang } = useLevantes();
@@ -58,7 +58,7 @@ export function Hero() {
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
         <div className="animate-liquid-reveal [text-shadow:0_2px_24px_oklch(0.18_0.06_255_/_0.55)]">
           <p className="text-xs uppercase tracking-[0.45em] text-white/85 mb-5">
-            {theme === "day" ? "Sea · Pool · Coffee" : "Candles · Sea · Wine"}
+            SUNSET · SEA · POOL · DINING
           </p>
           <h1 className="font-display text-[clamp(3.5rem,12vw,9rem)] leading-[0.9] tracking-tight text-white">
             Levantes
@@ -81,6 +81,16 @@ export function Hero() {
               {translations.nav.reserve[lang]}
             </LiquidButton>
           </div>
+
+          <a
+            href="https://g.page/r/CVjwYK53jY-qEBM/review"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/5 px-5 py-2.5 text-sm font-medium text-white/80 backdrop-blur-sm transition-colors hover:border-white/50 hover:bg-white/10 hover:text-white"
+          >
+            <Star className="size-4" />
+            {translations.hero.review[lang]}
+          </a>
         </div>
 
         <a
