@@ -768,7 +768,7 @@ export const translations = {
     reserve: { en: "Reserve", gr: "Κράτηση" },
   },
   hero: {
-    tagline: { en: "All-day beach gastro bar — sea, pool, and a table waiting.", gr: "Εκεί που η χαλάρωση της ημέρας συναντά τη μαγεία του βραδινού δείπνου." },
+    tagline: { en: "All-day beach gastro bar — sea, pool, and a table waiting.", gr: "Εκεί που η χαλάρωση της ημέρας συναντά τη μαγεία του βραδινού φαγητού." },
     cta: { en: "Explore the menu", gr: "Δες το μενού" },
     review: { en: "Leave a review", gr: "Αφήστε μας μια κριτική" },
     seeNight: { en: "See Levantes at night", gr: "Δες το Levantes τη νύχτα" },
