@@ -3,11 +3,14 @@ import { ChevronLeft, ChevronRight, Instagram } from "lucide-react";
 import { useLevantes } from "@/lib/levantes-context";
 import { reels, translations, imagePairs } from "@/lib/levantes-data";
 
-// Slide geometry (must match the calc() below). One active slide centered,
-// with the neighbours peeking on each side.
-const SLIDE_W = 72; // % of track width
-const GAP_REM = 1; // matches gap-4
-const CENTER_OFFSET = (100 - SLIDE_W) / 2; // % to center the active slide
+// Slide geometry. One active slide centered, with the neighbours peeking on
+// each side. The width lives in the --slide-w custom property so it can shrink
+// per breakpoint (see the wrapper below) without any JS measuring: a reel at
+// 72% of a 1280px container is a ~920px-wide, ~1430px-tall monster on desktop.
+const GAP_REM = 1; // matches the track gap
+// Centers the active slide, then steps the track by one slide + gap per index.
+const trackX = (pos: number) =>
+  `translateX(calc((100% - var(--slide-w)) / 2 - ${pos} * (var(--slide-w) + ${GAP_REM}rem)))`;
 
 export function Reels() {
   const { theme, lang } = useLevantes();
@@ -92,12 +95,12 @@ export function Reels() {
           </div>
         </div>
 
-        <div className="relative overflow-hidden">
+        <div className="relative overflow-hidden [--slide-w:72%] md:[--slide-w:44%] lg:[--slide-w:30%]">
           <div
             className="flex touch-pan-y"
             style={{
               gap: `${GAP_REM}rem`,
-              transform: `translateX(calc(${CENTER_OFFSET}% - ${pos} * (${SLIDE_W}% + ${GAP_REM}rem)))`,
+              transform: trackX(pos),
               transition: animate
                 ? "transform 700ms cubic-bezier(0.65,0,0.35,1)"
                 : "none",
@@ -121,7 +124,7 @@ export function Reels() {
                   className={`relative aspect-[9/14] flex-shrink-0 overflow-hidden rounded-3xl border border-border/60 shadow-soft transition-all duration-700 ${
                     active ? "scale-100 opacity-100" : "scale-90 opacity-60"
                   }`}
-                  style={{ flexBasis: `${SLIDE_W}%`, width: `${SLIDE_W}%` }}
+                  style={{ flexBasis: "var(--slide-w)", width: "var(--slide-w)" }}
                 >
                   <img
                     src={previewFor(realIdx)}
