@@ -2,8 +2,6 @@
 
 export { default as logo } from "@/assets/logo.png";
 
-import heroDay from "@/assets/hero-day.jpg";
-import heroNight from "@/assets/hero-night.jpg";
 import brunchDay from "@/assets/cat-brunch-day.jpg";
 import brunchNight from "@/assets/cat-brunch-night.jpg";
 import alldayDay from "@/assets/cat-allday-day.jpg";
@@ -12,16 +10,34 @@ import dinnerDay from "@/assets/cat-dinner-day.jpg";
 import dinnerNight from "@/assets/cat-dinner-night.jpg";
 import cocktailsDay from "@/assets/cat-cocktails-day.jpg";
 import cocktailsNight from "@/assets/cat-cocktails-night.jpg";
-import vibeDay from "@/assets/vibe-day.jpg";
-import vibeNight from "@/assets/vibe-night.jpg";
+
+// Decorative photography from the 2026 shoot. These live in public/photos and are
+// referenced by URL rather than imported, so the owner can swap a shot by dropping
+// a different file from the same library in here.
+//
+// Day and night are always two different photographs — a daylight frame is never
+// reused for the night theme, or the other way round.
+const photos = {
+  heroDay: "/photos/LAX_0657.webp", // open sea and the far mountains, seen from under a beach umbrella
+  heroNight: "/photos/LAX_1097.webp", // the lit pool and bar at dusk
+  vibeDay: "/photos/LAX_0744.webp", // sunbed, towel and a drink at the poolside
+  vibeNight: "/photos/LAX_0954.webp", // table for two at dusk, sea and umbrellas behind
+  // One photo per reel, in the order the reels are listed below.
+  reelSwimDay: "/photos/LAX_0662.webp", // Levantes cup in the wash at the shoreline
+  reelBrunchDay: "/photos/breakfast-by-the-pool.webp", // avocado toast, pool behind
+  reelSpritzDay: "/photos/LAX_0761.webp", // cocktail held out over the turquoise pool
+  reelSunsetNight: "/photos/LAX_0948.webp", // white wine toast against the sunset sea
+  reelDinnerNight: "/photos/LAX_1084.webp", // dusk table: wine, glasses and dessert
+  reelLastCallNight: "/photos/LAX_1006.webp", // rose and two glasses carried out after dark
+};
 
 export const imagePairs = {
-  hero: { day: heroDay, night: heroNight },
+  hero: { day: photos.heroDay, night: photos.heroNight },
   brunch: { day: brunchDay, night: brunchNight },
   allday: { day: alldayDay, night: alldayNight },
   dinner: { day: dinnerDay, night: dinnerNight },
   cocktails: { day: cocktailsDay, night: cocktailsNight },
-  vibe: { day: vibeDay, night: vibeNight },
+  vibe: { day: photos.vibeDay, night: photos.vibeNight },
 };
 
 export type Lang = "en" | "gr";
@@ -806,6 +822,7 @@ export const translations = {
     sent: { en: "Thanks — we'll be in touch shortly.", gr: "Ευχαριστούμε — θα επικοινωνήσουμε σύντομα." },
     hours: { en: "Open daily · 09:00 — 01:00", gr: "Καθημερινά · 09:00 — 01:00" },
     address: { en: "Epar.Od. Gefiras Isthmou – Isthmion 44, Isthmia, Korinthia 20100", gr: "Επαρ.Οδ. Γεφύρας Ισθμού – Ισθμιών 44, Ισθμία, Κορινθία 20100" },
+    mapTitle: { en: "Levantes on Google Maps", gr: "Το Levantes στον χάρτη Google" },
   },
   tags: {
     v: { en: "Veg", gr: "Χορτ." },
@@ -820,14 +837,14 @@ export const translations = {
 
 export const reels = {
   day: [
-    { id: "d1", url: "https://www.instagram.com/reel/DMF0r52IRtF/", caption: { en: "Morning swim", gr: "Πρωινό μπάνιο" } },
-    { id: "d2", url: "https://www.instagram.com/reel/DMfM_9kIQ5H/", caption: { en: "Brunch by the pool", gr: "Brunch δίπλα στην πισίνα" } },
-    { id: "d3", url: "https://www.instagram.com/reel/DMKJY9JIgpC/", caption: { en: "Afternoon spritz", gr: "Απογευματινό spritz" } },
+    { id: "d1", url: "https://www.instagram.com/reel/DMF0r52IRtF/", image: photos.reelSwimDay, caption: { en: "Morning swim", gr: "Πρωινό μπάνιο" } },
+    { id: "d2", url: "https://www.instagram.com/reel/DMfM_9kIQ5H/", image: photos.reelBrunchDay, caption: { en: "Brunch by the pool", gr: "Brunch δίπλα στην πισίνα" } },
+    { id: "d3", url: "https://www.instagram.com/reel/DMKJY9JIgpC/", image: photos.reelSpritzDay, caption: { en: "Afternoon spritz", gr: "Απογευματινό spritz" } },
   ],
   night: [
-    { id: "n1", url: "https://www.instagram.com/reel/DMF0r52IRtF/", caption: { en: "Sunset sessions", gr: "Sunset sessions" } },
-    { id: "n2", url: "https://www.instagram.com/reel/DMfM_9kIQ5H/", caption: { en: "Candlelit dinner", gr: "Δείπνο με κεριά" } },
-    { id: "n3", url: "https://www.instagram.com/reel/DMKJY9JIgpC/", caption: { en: "Last call", gr: "Τελευταία παραγγελία" } },
+    { id: "n1", url: "https://www.instagram.com/reel/DMF0r52IRtF/", image: photos.reelSunsetNight, caption: { en: "Sunset sessions", gr: "Sunset sessions" } },
+    { id: "n2", url: "https://www.instagram.com/reel/DMfM_9kIQ5H/", image: photos.reelDinnerNight, caption: { en: "Candlelit dinner", gr: "Δείπνο με κεριά" } },
+    { id: "n3", url: "https://www.instagram.com/reel/DMKJY9JIgpC/", image: photos.reelLastCallNight, caption: { en: "Last call", gr: "Τελευταία παραγγελία" } },
   ],
 };
 
@@ -835,5 +852,12 @@ export const contact = {
   phone: "+30 2741048198",
   email: "hello@levantes.gr",
   instagram: "https://instagram.com/levantes_",
-  mapsUrl: "https://maps.google.com/?q=Epar.Od.+Gefiras+Isthmou+Isthmion+44+Isthmia+Korinthia+Greece",
+  mapsUrl: "https://maps.app.goo.gl/E1oQcHZmECT47TF7A",
+};
+
+// Embed URL for the Levantes pin on Google Maps. The two `!1s<code>!2sgr` segments
+// carry the map's own language, so the labels follow the site's language toggle.
+export const mapEmbedUrl = (lang: Lang) => {
+  const hl = lang === "gr" ? "el" : "en";
+  return `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3147.334696716953!2d23.0130373!3d37.9226107!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14a03e180267baa7%3A0xaa8f8d77ae60f058!2sLevantes!5e0!3m2!1s${hl}!2sgr!4v1788202754763!5m2!1s${hl}!2sgr`;
 };

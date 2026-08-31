@@ -1,6 +1,6 @@
 import { Phone, MapPin, Clock } from "lucide-react";
 import { useLevantes } from "@/lib/levantes-context";
-import { translations, contact } from "@/lib/levantes-data";
+import { translations, contact, mapEmbedUrl } from "@/lib/levantes-data";
 
 export function Contact() {
   const { lang } = useLevantes();
@@ -34,6 +34,20 @@ export function Contact() {
             <span>{translations.contact.hours[lang]}</span>
           </li>
         </ul>
+      </div>
+
+      {/* Google Maps pin. Keyed on `lang` so switching language remounts the
+          iframe with map labels in that language. */}
+      <div className="mx-auto mt-12 max-w-4xl overflow-hidden rounded-3xl border border-border/60 shadow-soft md:mt-16">
+        <iframe
+          key={lang}
+          src={mapEmbedUrl(lang)}
+          title={translations.contact.mapTitle[lang]}
+          className="block h-[320px] w-full border-0 md:h-[420px]"
+          loading="lazy"
+          allowFullScreen
+          referrerPolicy="strict-origin-when-cross-origin"
+        />
       </div>
     </section>
   );

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Instagram } from "lucide-react";
 import { useLevantes } from "@/lib/levantes-context";
-import { reels, translations, imagePairs } from "@/lib/levantes-data";
+import { reels, translations } from "@/lib/levantes-data";
 
 // Slide geometry. One active slide centered, with the neighbours peeking on
 // each side. The width lives in the --slide-w custom property so it can shrink
@@ -67,12 +67,6 @@ export function Reels() {
   // Real index currently centered (0..n-1), used for dots.
   const realActive = (pos - 1 + n) % n;
 
-  // Image fallback for reel previews — alternating cat photos.
-  const previewFor = (idx: number) => {
-    const keys = ["brunch", "allday", "dinner", "cocktails"] as const;
-    return imagePairs[keys[idx % keys.length]][theme];
-  };
-
   return (
     <section id="reels" className="relative px-5 py-20 md:px-8 md:py-28">
       <div className="mx-auto max-w-7xl">
@@ -111,8 +105,6 @@ export function Reels() {
           >
             {slides.map((reel, idx) => {
               const active = idx === pos;
-              // Map cloned position back to the real reel index for the preview image.
-              const realIdx = (idx - 1 + n) % n;
               return (
                 <a
                   key={`${reel.id}-${idx}`}
@@ -127,7 +119,7 @@ export function Reels() {
                   style={{ flexBasis: "var(--slide-w)", width: "var(--slide-w)" }}
                 >
                   <img
-                    src={previewFor(realIdx)}
+                    src={reel.image}
                     alt={reel.caption[lang]}
                     loading="lazy"
                     draggable={false}
