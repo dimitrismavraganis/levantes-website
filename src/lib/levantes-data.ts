@@ -21,14 +21,14 @@ const photos = {
   heroDay: "/photos/LAX_0657.webp", // open sea and the far mountains, seen from under a beach umbrella
   heroNight: "/photos/LAX_1097.webp", // the lit pool and bar at dusk
   vibeDay: "/photos/LAX_0744.webp", // sunbed, towel and a drink at the poolside
-  vibeNight: "/photos/LAX_0954.webp", // table for two at dusk, sea and umbrellas behind
+  vibeNight: "/photos/LAX_1094.webp", // the garden lounge at dusk, warm uplights and the sea beyond
   // One photo per reel, in the order the reels are listed below.
   reelSwimDay: "/photos/LAX_0662.webp", // Levantes cup in the wash at the shoreline
   reelBrunchDay: "/photos/breakfast-by-the-pool.webp", // avocado toast, pool behind
   reelSpritzDay: "/photos/LAX_0761.webp", // cocktail held out over the turquoise pool
   reelSunsetNight: "/photos/LAX_0948.webp", // white wine toast against the sunset sea
-  reelDinnerNight: "/photos/LAX_1084.webp", // dusk table: wine, glasses and dessert
-  reelLastCallNight: "/photos/LAX_1006.webp", // rose and two glasses carried out after dark
+  reelDinnerNight: "/photos/LAX_1051.webp", // plated steak at dusk, glowing lamps behind
+  reelLastCallNight: "/photos/LAX_1064.webp", // late-night burger against the lit pool
 };
 
 export const imagePairs = {
