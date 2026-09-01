@@ -89,7 +89,7 @@ export function Reels() {
           </div>
         </div>
 
-        <div className="relative overflow-hidden [--slide-w:72%] md:[--slide-w:44%] lg:[--slide-w:30%]">
+        <div className="relative overflow-hidden [--slide-w:76%] md:[--slide-w:48%] lg:[--slide-w:32%]">
           <div
             className="flex touch-pan-y"
             style={{
@@ -113,7 +113,7 @@ export function Reels() {
                   rel="noopener noreferrer"
                   aria-hidden={!active}
                   tabIndex={active ? 0 : -1}
-                  className={`relative aspect-[9/14] flex-shrink-0 overflow-hidden rounded-3xl border border-border/60 shadow-soft transition-all duration-700 ${
+                  className={`relative aspect-[9/16] flex-shrink-0 overflow-hidden rounded-3xl border border-border/60 shadow-soft transition-all duration-700 ${
                     active ? "scale-100 opacity-100" : "scale-90 opacity-60"
                   }`}
                   style={{ flexBasis: "var(--slide-w)", width: "var(--slide-w)" }}

@@ -21,7 +21,7 @@ const photos = {
   heroDay: "/photos/LAX_0657.webp", // open sea and the far mountains, seen from under a beach umbrella
   heroNight: "/photos/LAX_1097.webp", // the lit pool and bar at dusk
   vibeDay: "/photos/LAX_0744.webp", // sunbed, towel and a drink at the poolside
-  vibeNight: "/photos/LAX_1094.webp", // the garden lounge at dusk, warm uplights and the sea beyond
+  vibeNight: "/photos/LAX_1101.webp", // the pool at dusk, terrace and the town lights across the water
   // One photo per reel, in the order the reels are listed below.
   reelSwimDay: "/photos/LAX_0662.webp", // Levantes cup in the wash at the shoreline
   reelBrunchDay: "/photos/breakfast-by-the-pool.webp", // avocado toast, pool behind
